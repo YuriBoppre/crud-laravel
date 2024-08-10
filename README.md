@@ -1,36 +1,70 @@
+Esse gerador de CRUD do Laravel cria, fornece e gera controladores, modelos e visualizações em Bootstrap/Tailwind CSS para o desenvolvimento de suas aplicações com um único comando. Fazendo com que se torne rápido e prático, basta aplicar suas regras de negócio e moldar como desejar. 
+
 ## Requisitos
 
+* XAMPP
 * PHP 8.2 ou superior
 * MySQL 8 ou superior
 * Composer
 
-## Como rodar o projeto baixado
+# Iniciando um projeto
 
-## Sequencia para criar o projeto
-
-Criar o projeto com Laravel
+Basta utilizar o seguinte comando
 ```
-composer create-project laravel/laravel . 
+composer create-project laravel/laravel .  
 ```
 
-Alterar no arquivo .env as credenciais do banco de dados<br>
+## Passo a passo de como fazer um crud
 
-Criar o arquivo de rotas para API
+Primeiramente montamos um model básico
 ```
-php artisan install:api
+php artisan make:model [NOME_MODEL} -m 
 ```
-
-## Como iniciar o projeto
-
-Duplicar o arquivo ".env.example" e renomear para ".env".<br>
-Alterar no arquivo .env as credenciais do banco de dados<br>
-
-Instalar as dependências do PHP
+Em seguida, fazemos a migração para o banco
 ```
-composer install
+php artisan migrate
+```
+Após fazer a migração é necessário instalar e liberar o gerador de CRUD.
+```
+composer require ibex/crud-generator --dev
 ```
 
-Gerar a chave no arquivo .env
+Em seguida, podemos finalmente criar o crud e suas rotas. Quando finalizar esse comandoele vai gerar uma linha copiável que vamos colar no arquivo web.php
 ```
-php artisan key:generate
+php artisan make:crud [NOME_MODEL]
 ```
+Essa foi a maneira de criar um crud simples
+
+
+## Como verificar CRUDS gerados
+
+Após realizar a etapa anterior e fazer a geração do CRUD desejado, podemos verificar as rotas
+```
+php artisan route:list
+```
+
+## Ocorreu algum erro na hora de migrar para o banco?
+
+Pode tentar novamente atráves do comando
+```
+php artisan migrate
+```
+Ou fazer um rollback do que foi gerado e tentar novamente
+```
+php artisan migrate:rollback
+```
+
+## Rodando projeto
+
+Assim que clonar, basta  iniciar o seu servidor de banco e fazer o comando:
+```
+php artisan migrate
+```
+Pois já vai estar com as tabelas necessárias para rodar, sem seguida, executar em ordem os seguintes comandos:
+```
+npm install
+npm run build
+php artisan serve     
+```
+
+Ao entrar no acesso fornecido, crie um login e assim vai ser direcionado para a parte dos CRUDS(Consultor, Compromisso)
